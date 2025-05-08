@@ -345,242 +345,231 @@ const UEDetail = () => {
           </div>
         </div>
       ) : (
-        <div className="overflow-hidden">
-          <table className="min-w-full divide-y divide-gray-200 bg-white shadow overflow-hidden sm:rounded-lg">
-            <thead className="bg-gray-50">
-              <tr>
-                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Matière
-                </th>
-                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Coefficient
-                </th>
-                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Interrogation (40%)
-                </th>
-                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Devoir (60%)
-                </th>
-                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Moy. initiale
-                </th>
-                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Rattrapage
-                </th>
-                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Moy. finale
-                </th>
-                <th scope="col" className="relative px-6 py-3">
-                  <span className="sr-only">Actions</span>
-                </th>
-              </tr>
-            </thead>
-            <tbody className="bg-white divide-y divide-gray-200">
-              {ueWithCalculations.subjects.map(subject => (
-                <tr key={subject.id}>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                    {editingId === subject.id ? (
-                      <input
-                        type="text"
-                        {...registerEdit('name', { required: true })}
-                        className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
-                      />
-                    ) : (
-                      <span className={`inline-flex items-center ${
-                        subject.status === 'danger' ? 'text-red-600' :
-                        subject.status === 'warning' ? 'text-yellow-600' :
-                        'text-gray-900'
-                      }`}>
-                        {subject.status === 'danger' && <AlertTriangle className="h-4 w-4 mr-1" />}
-                        {subject.status === 'warning' && <AlertTriangle className="h-4 w-4 mr-1" />}
-                        {subject.name}
-                      </span>
-                    )}
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                    {editingId === subject.id ? (
-                      <input
-                        type="number"
-                        min="0.5"
-                        step="0.5"
-                        {...registerEdit('coefficient', { required: true, min: 0.5 })}
-                        className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
-                      />
-                    ) : (
-                      <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
-                        {subject.coefficient}
-                      </span>
-                    )}
-                  </td>
-                  
-                  {/* Grades */}
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                    {editingGradesId === subject.id ? (
-                      <input
-                        type="number"
-                        min="0"
-                        max="20"
-                        step="0.25"
-                        {...registerGrades('interrogation')}
-                        className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
-                        placeholder="0-20"
-                      />
-                    ) : (
-                      subject.interrogation !== null ? subject.interrogation.toFixed(2) : '-'
-                    )}
-                  </td>
-                  
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                    {editingGradesId === subject.id ? (
-                      <input
-                        type="number"
-                        min="0"
-                        max="20"
-                        step="0.25"
-                        {...registerGrades('devoir')}
-                        className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
-                        placeholder="0-20"
-                      />
-                    ) : (
-                      subject.devoir !== null ? subject.devoir.toFixed(2) : '-'
-                    )}
-                  </td>
-                  
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                    {subject.initialAverage !== null ? (
-                      <span className={
-                        subject.initialAverage < 7 ? 'text-red-600 font-medium' : 'text-gray-500'
-                      }>
-                        {subject.initialAverage.toFixed(2)}
-                      </span>
-                    ) : '-'}
-                  </td>
-                  
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                    {editingGradesId === subject.id ? (
-                      <input
-                        type="number"
-                        min="0"
-                        max="20"
-                        step="0.25"
-                        {...registerGrades('rattrapage')}
-                        className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
-                        placeholder="0-20"
-                      />
-                    ) : (
-                      subject.rattrapage !== null ? subject.rattrapage.toFixed(2) : '-'
-                    )}
-                  </td>
-                  
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                    {subject.finalAverage !== null ? (
-                      <span className={
-                        subject.finalAverage < 7 ? 'text-red-600 font-medium' : 
-                        subject.finalAverage >= 10 ? 'text-green-600 font-medium' :
-                        'text-gray-500'
-                      }>
-                        {subject.finalAverage.toFixed(2)}
-                      </span>
-                    ) : '-'}
-                  </td>
-                  
-                  <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                    {editingId === subject.id ? (
-                      <div className="flex space-x-2 justify-end">
-                        <button
-                          type="button"
-                          onClick={() => handleEditSubmit(onEditSubmit)()}
-                          disabled={isLoading}
-                          className="text-blue-600 hover:text-blue-900"
-                        >
-                          Enregistrer
-                        </button>
-                        <button
-                          type="button"
-                          onClick={() => setEditingId(null)}
-                          className="text-gray-600 hover:text-gray-900"
-                        >
-                          Annuler
-                        </button>
-                      </div>
-                    ) : editingGradesId === subject.id ? (
-                      <div className="flex space-x-2 justify-end">
-                        <button
-                          type="button"
-                          onClick={() => handleGradesSubmit(onGradesSubmit)()}
-                          disabled={isLoading}
-                          className="text-blue-600 hover:text-blue-900"
-                        >
-                          Enregistrer
-                        </button>
-                        <button
-                          type="button"
-                          onClick={() => setEditingGradesId(null)}
-                          className="text-gray-600 hover:text-gray-900"
-                        >
-                          Annuler
-                        </button>
-                      </div>
-                    ) : (
-                      <div className="flex space-x-3 justify-end">
-                        <button
-                          onClick={() => startEditGrades(subject.id, subject.interrogation, subject.devoir, subject.rattrapage)}
-                          className="text-blue-600 hover:text-blue-900"
-                        >
-                          Notes
-                        </button>
-                        <button
-                          onClick={() => startEdit(subject.id, subject.name, subject.coefficient)}
-                          className="text-gray-600 hover:text-gray-900"
-                        >
-                          Modifier
-                        </button>
-                        <button
-                          onClick={() => handleDelete(subject.id)}
-                          className="text-red-600 hover:text-red-900"
-                        >
-                          Supprimer
-                        </button>
-                      </div>
-                    )}
-                  </td>
-                </tr>
-              ))}
-              
-              <tr className="bg-gray-50">
+        <div className="overflow-x-auto">
+        <table className="min-w-full divide-y divide-gray-200 bg-white shadow sm:rounded-lg">
+          <thead className="bg-gray-50">
+            <tr>
+              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                Matière
+              </th>
+              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                Coefficient
+              </th>
+              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                Interrogation (40%)
+              </th>
+              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                Devoir (60%)
+              </th>
+              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                Moy. initiale
+              </th>
+              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                Rattrapage
+              </th>
+              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                Moy. finale
+              </th>
+              <th scope="col" className="relative px-6 py-3">
+                <span className="sr-only">Actions</span>
+              </th>
+            </tr>
+          </thead>
+          <tbody className="bg-white divide-y divide-gray-200">
+            {ueWithCalculations.subjects.map(subject => (
+              <tr key={subject.id}>
                 <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                  Total / Moyenne
+                  {editingId === subject.id ? (
+                    <input
+                      type="text"
+                      {...registerEdit('name', { required: true })}
+                      className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                    />
+                  ) : (
+                    <span className={`inline-flex items-center ${
+                      subject.status === 'danger' ? 'text-red-600' :
+                      subject.status === 'warning' ? 'text-yellow-600' :
+                      'text-gray-900'
+                    }`}>
+                      {subject.status === 'danger' && <AlertTriangle className="h-4 w-4 mr-1" />}
+                      {subject.status === 'warning' && <AlertTriangle className="h-4 w-4 mr-1" />}
+                      {subject.name}
+                    </span>
+                  )}
                 </td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                  {coefficientSum}
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                  {editingId === subject.id ? (
+                    <input
+                      type="number"
+                      min="0.5"
+                      step="0.5"
+                      {...registerEdit('coefficient', { required: true, min: 0.5 })}
+                      className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                    />
+                  ) : (
+                    <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                      {subject.coefficient}
+                    </span>
+                  )}
                 </td>
-                <td colSpan={4} className="px-6 py-4 whitespace-nowrap text-sm text-gray-500"></td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                  {ueWithCalculations.average !== null ? (
+                {/* Grades */}
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                  {editingGradesId === subject.id ? (
+                    <input
+                      type="number"
+                      min="0"
+                      max="20"
+                      step="0.25"
+                      {...registerGrades('interrogation')}
+                      className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                      placeholder="0-20"
+                    />
+                  ) : (
+                    subject.interrogation !== null ? subject.interrogation.toFixed(2) : '-'
+                  )}
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                  {editingGradesId === subject.id ? (
+                    <input
+                      type="number"
+                      min="0"
+                      max="20"
+                      step="0.25"
+                      {...registerGrades('devoir')}
+                      className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                      placeholder="0-20"
+                    />
+                  ) : (
+                    subject.devoir !== null ? subject.devoir.toFixed(2) : '-'
+                  )}
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                  {subject.initialAverage !== null ? (
                     <span className={
-                      ueWithCalculations.average < 10 ? 'text-red-600' : 'text-green-600'
+                      subject.initialAverage < 7 ? 'text-red-600 font-medium' : 'text-gray-500'
                     }>
-                      {ueWithCalculations.average.toFixed(2)}
+                      {subject.initialAverage.toFixed(2)}
+                    </span>
+                  ) : '-'}
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                  {editingGradesId === subject.id ? (
+                    <input
+                      type="number"
+                      min="0"
+                      max="20"
+                      step="0.25"
+                      {...registerGrades('rattrapage')}
+                      className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                      placeholder="0-20"
+                    />
+                  ) : (
+                    subject.rattrapage !== null ? subject.rattrapage.toFixed(2) : '-'
+                  )}
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                  {subject.finalAverage !== null ? (
+                    <span className={subject.finalAverage < 7 ? 'text-red-600 font-medium' :
+                      subject.finalAverage >= 10 ? 'text-green-600 font-medium' : 'text-gray-500'}>
+                      {subject.finalAverage.toFixed(2)}
                     </span>
                   ) : '-'}
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                  {ueWithCalculations.isValid ? (
-                    <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
-                      <CheckCircle className="h-3 w-3 mr-1" />
-                      Validée
-                    </span>
+                  {editingId === subject.id ? (
+                    <div className="flex space-x-2 justify-end">
+                      <button
+                        type="button"
+                        onClick={() => handleEditSubmit(onEditSubmit)()}
+                        disabled={isLoading}
+                        className="text-blue-600 hover:text-blue-900"
+                      >
+                        Enregistrer
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => setEditingId(null)}
+                        className="text-gray-600 hover:text-gray-900"
+                      >
+                        Annuler
+                      </button>
+                    </div>
+                  ) : editingGradesId === subject.id ? (
+                    <div className="flex space-x-2 justify-end">
+                      <button
+                        type="button"
+                        onClick={() => handleGradesSubmit(onGradesSubmit)()}
+                        disabled={isLoading}
+                        className="text-blue-600 hover:text-blue-900"
+                      >
+                        Enregistrer
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => setEditingGradesId(null)}
+                        className="text-gray-600 hover:text-gray-900"
+                      >
+                        Annuler
+                      </button>
+                    </div>
                   ) : (
-                    <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">
-                      <AlertTriangle className="h-3 w-3 mr-1" />
-                      Non validée
-                    </span>
+                    <div className="flex space-x-3 justify-end">
+                      <button
+                        onClick={() => startEditGrades(subject.id, subject.interrogation, subject.devoir, subject.rattrapage)}
+                        className="text-blue-600 hover:text-blue-900"
+                      >
+                        Notes
+                      </button>
+                      <button
+                        onClick={() => startEdit(subject.id, subject.name, subject.coefficient)}
+                        className="text-gray-600 hover:text-gray-900"
+                      >
+                        Modifier
+                      </button>
+                      <button
+                        onClick={() => handleDelete(subject.id)}
+                        className="text-red-600 hover:text-red-900"
+                      >
+                        Supprimer
+                      </button>
+                    </div>
                   )}
                 </td>
               </tr>
-            </tbody>
-          </table>
-        </div>
+            ))}
+            <tr className="bg-gray-50">
+              <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                Total / Moyenne
+              </td>
+              <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                {coefficientSum}
+              </td>
+              <td colSpan={4} className="px-6 py-4 whitespace-nowrap text-sm text-gray-500"></td>
+              <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                {ueWithCalculations.average !== null ? (
+                  <span className={ueWithCalculations.average < 10 ? 'text-red-600' : 'text-green-600'}>
+                    {ueWithCalculations.average.toFixed(2)}
+                  </span>
+                ) : '-'}
+              </td>
+              <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                {ueWithCalculations.isValid ? (
+                  <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                    <CheckCircle className="h-3 w-3 mr-1" />
+                    Validée
+                  </span>
+                ) : (
+                  <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">
+                    <AlertTriangle className="h-3 w-3 mr-1" />
+                    Non validée
+                  </span>
+                )}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      
       )}
     </div>
   );
