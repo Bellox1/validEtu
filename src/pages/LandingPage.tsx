@@ -179,6 +179,7 @@ const LandingPage: React.FC = () => {
           <div>
             <h4 className="text-xl font-semibold mb-4">Liens rapides</h4>
             <ul className="space-y-2 text-sm text-gray-300">
+            <li><a href="/dashboard" className="hover:underline">Tableau de bord</a></li>
               <li><a href="/login" className="hover:underline">Se connecter</a></li>
               <li><a href="/register" className="hover:underline">Créer un compte</a></li>
               <li><a href="/details" className="hover:underline">Découvrir l'application</a></li>

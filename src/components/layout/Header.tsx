@@ -12,7 +12,7 @@ const Header = ({ onMenuClick }: HeaderProps) => {
 
   const handleLogout = () => {
     logout();
-    navigate('/login');
+    navigate('/details');
   };
 
   const handleProfileClick = () => {
