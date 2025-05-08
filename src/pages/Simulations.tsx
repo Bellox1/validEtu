@@ -301,6 +301,20 @@ const Simulations = () => {
           </div>
         </div>
       </div>
+      <div className="mt-6 bg-red-100 border border-red-300 text-red-700 p-4 rounded-lg text-sm sm:text-base leading-relaxed">
+  <strong>⚠️ Attention :</strong> Cette version 1.0.0 (bêta publique) ne prend pas en charge l'utilisation d'un même compte sur plusieurs appareils.  
+  Toutes les données sont enregistrées uniquement dans le navigateur utilisé lors de la création du compte (stockage local).  
+  <br className="hidden sm:block" />
+  Il n'existe aucune synchronisation entre navigateurs ou appareils.  
+  <br className="hidden sm:block" />
+  Si vous changez d'appareil ou videz les caches de votre navigateur, toutes vos données seront définitivement perdues.
+  <br className="hidden sm:block" />
+  De plus, en cas d'oubli de mot de passe, le compte est irrécupérable.
+  <br className="hidden sm:block" />
+  <strong>ℹ️ Nous travaillons activement à améliorer ValidEtu afin de résoudre ces limitations et proposer une solution plus robuste et sécurisée.</strong>
+</div>
+
+
       
       <div className="bg-white shadow overflow-hidden sm:rounded-lg">
         <div className="px-4 py-5 sm:px-6 border-b border-gray-200">
@@ -308,6 +322,7 @@ const Simulations = () => {
             <div className="flex-shrink-0 h-10 w-10 rounded-full bg-blue-100 flex items-center justify-center text-blue-600">
               <ArrowRight size={20} />
             </div>
+            
             <div className="ml-4">
               <h3 className="text-lg font-medium text-gray-900">Rappel des règles de validation</h3>
             </div>
@@ -333,10 +348,12 @@ const Simulations = () => {
             
             <h4>Passage en classe supérieure :</h4>
             <p>À la fin de l'année (60 crédits), l'étudiant passe en classe supérieure si total_crédits_validés &gt;= 48</p>
+            
           </div>
         </div>
       </div>
     </div>
+    
   );
 };
 

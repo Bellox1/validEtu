@@ -164,6 +164,21 @@ const LandingPage: React.FC = () => {
     <p className="mt-2 text-gray-600 text-base sm:text-lg">
       Rejoignez-nous et organisez votre année avec ValidEtu !
     </p>
+    <div className="mt-6 bg-red-100 border border-red-300 text-red-700 p-4 rounded-lg text-sm sm:text-base leading-relaxed">
+  <strong>⚠️ Attention :</strong> Cette version 1.0.0 (bêta publique) ne prend pas en charge l'utilisation d'un même compte sur plusieurs appareils.  
+  Toutes les données sont enregistrées uniquement dans le navigateur utilisé lors de la création du compte (stockage local).  
+  <br className="hidden sm:block" />
+  Il n'existe aucune synchronisation entre navigateurs ou appareils.  
+  <br className="hidden sm:block" />
+  Si vous changez d'appareil ou videz les caches de votre navigateur, toutes vos données seront définitivement perdues.
+  <br className="hidden sm:block" />
+  De plus, en cas d'oubli de mot de passe, le compte est irrécupérable.
+  <br className="hidden sm:block" />
+  <strong>ℹ️ Nous travaillons activement à améliorer ValidEtu afin de résoudre ces limitations et proposer une solution plus robuste et sécurisée.</strong>
+</div>
+
+
+
   </div>
 </section>
 
